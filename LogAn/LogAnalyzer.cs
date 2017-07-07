@@ -1,12 +1,21 @@
+using System;
+
 public class LogAnalyzer
 {
-    public bool IsValidLogFileName(string fileName)
-    {
-        if (!fileName.EndsWith(".SLF"))
-        {
-            return false;
-        }
+  public bool WasLastFileNameValid { get; set; }
+  public bool IsValidLogFileName(string fileName)
+  {
+    WasLastFileNameValid = false;
 
-        return true;
+    if (String.IsNullOrEmpty(fileName))
+      throw new ArgumentException("fileName has to be provided.");
+
+    if (!fileName.EndsWith(".SLF", StringComparison.CurrentCultureIgnoreCase))
+    {
+      return false;
     }
+
+    WasLastFileNameValid = true;
+    return true;
+  }
 }
